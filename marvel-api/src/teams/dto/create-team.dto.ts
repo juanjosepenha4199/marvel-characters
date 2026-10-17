@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsInt,
   IsNotEmpty,
@@ -26,4 +27,10 @@ export class CreateTeamDto {
   @IsOptional()
   @IsBoolean()
   active?: boolean;
+
+  // solo aplica en el POST, para asignar personajes al crear el equipo
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  characterIds?: number[];
 }

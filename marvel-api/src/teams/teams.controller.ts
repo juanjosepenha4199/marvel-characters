@@ -6,11 +6,14 @@ import {
   HttpCode,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { AssignCharactersDto } from './dto/assign-characters.dto';
 
 @Controller('teams')
 export class TeamsController {
@@ -37,8 +40,16 @@ export class TeamsController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: CreateTeamDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateTeamDto) {
     return this.teamsService.update(id, dto);
+  }
+
+  @Patch(':id/characters')
+  assignCharacters(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AssignCharactersDto,
+  ) {
+    return this.teamsService.assignCharacters(id, dto.characterIds);
   }
 
   @Delete(':id')

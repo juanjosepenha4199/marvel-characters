@@ -1,11 +1,11 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
   Param,
+  ParseEnumPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -23,16 +23,11 @@ export class CharactersController {
 
   @Get()
   findAll(
-    @Query('status') status?: CharacterStatus,
-    @Query('teamId') teamId?: string,
+    @Query('status', new ParseEnumPipe(CharacterStatus, { optional: true }))
+    status?: CharacterStatus,
+    @Query('teamId', new ParseIntPipe({ optional: true })) teamId?: number,
   ) {
-    if (status && !Object.values(CharacterStatus).includes(status)) {
-      throw new BadRequestException('El status no es valido');
-    }
-    return this.charactersService.findAll(
-      status,
-      teamId ? Number(teamId) : undefined,
-    );
+    return this.charactersService.findAll(status, teamId);
   }
 
   @Get(':id')

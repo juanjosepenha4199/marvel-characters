@@ -1,4 +1,6 @@
 # Base de datos — Taller API de Personajes Marvel
+Juan Jose Penha
+Santiago Pinilla 
 
 Este repositorio **solo** contiene la base de datos PostgreSQL con datos de prueba.
 El proyecto NestJS lo deben crear ustedes desde cero, en una carpeta aparte.
